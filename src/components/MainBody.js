@@ -4,7 +4,12 @@ import { TableBody } from "@mui/material";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 
-function MainBody({ currentRows, handleRowData, setSelectedRows }) {
+function MainBody({
+  currentRows,
+  handleRowData,
+  selectedRowIds,
+  setSelectedRowIds,
+}) {
   const [editRowId, setEditRowId] = React.useState(null);
 
   const handleRowEdit = (e, id) => {
@@ -30,6 +35,20 @@ function MainBody({ currentRows, handleRowData, setSelectedRows }) {
     handleRowData(null, id);
   };
 
+  const handleRowChecked = (e, rowId) => {
+    // console.log("handleRowChecked");
+    if (selectedRowIds.includes(rowId)) {
+      // console.log("Remove from Selected");
+      const index = selectedRowIds.findIndex((id) => id == rowId);
+      selectedRowIds.splice(index, 1);
+      setSelectedRowIds(selectedRowIds);
+    } else {
+      // console.log("Add to Selected");
+      selectedRowIds.push(rowId);
+      setSelectedRowIds(selectedRowIds);
+    }
+  };
+
   return (
     <>
       <TableBody>
@@ -46,9 +65,10 @@ function MainBody({ currentRows, handleRowData, setSelectedRows }) {
               ) : (
                 <ReadOnlyRow
                   tableRow={tableRow}
+                  selectedRowIds={selectedRowIds}
                   handleRowEdit={handleRowEdit}
                   handleRowDelete={handleRowDelete}
-                  // handleRowChecked={handleRowChecked}
+                  handleRowChecked={handleRowChecked}
                 />
               )}
             </React.Fragment>

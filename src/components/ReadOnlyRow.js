@@ -6,19 +6,27 @@ import EditIcon from "@mui/icons-material/Edit";
 
 function ReadOnlyRow({
   tableRow,
+  selectedRowIds,
   handleRowEdit,
   handleRowDelete,
   handleRowChecked,
 }) {
+  const [isSeletedChanged, setIsSelectedChanged] = React.useState(false);
+
+  // React.useState(() => {
+  //   // console.log("Re- rendered");
+  // }, [isSeletedChanged]);
+
   return (
     <>
-      <TableRow selected={tableRow.isSelected}>
+      <TableRow selected={selectedRowIds.includes(tableRow.id)}>
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
             //   checked={isItemSelected}
             onClick={(e) => {
-              // handleRowChecked(e, tableRow.id);
+              handleRowChecked(e, tableRow.id);
+              setIsSelectedChanged(!isSeletedChanged);
             }}
           />
         </TableCell>

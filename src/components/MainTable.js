@@ -11,7 +11,10 @@ function MainTable({ apiData, loading }) {
   const [tableData, setTableData] = React.useState(apiData);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [selectedRowIds, setSelectedRowIds] = React.useState([]);
+  // const [selectedRowIds, setSelectedRowIds] = React.useState(
+  //   apiData.map((ele) => ele.id)
+  // );
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -58,15 +61,25 @@ function MainTable({ apiData, loading }) {
     // handleRowData(null, id)
   };
 
+  const handleSelectAllClick = (event) => {
+    // if (event.target.checked) {
+    //   const newSelecteds = currentRows;
+    //   setSelectedRows(newSelecteds);
+    //   return;
+    // }
+    // setSelectedRows([]);
+  };
+
   return (
     <>
       <TableContainer>
         <Table>
-          <MainHead />
+          <MainHead handleSelectAllClick={handleSelectAllClick} />
           <MainBody
             currentRows={currentRows}
             handleRowData={handleRowData}
-            setSelectedRows={setSelectedRows}
+            selectedRowIds={selectedRowIds}
+            setSelectedRowIds={setSelectedRowIds}
           />
         </Table>
       </TableContainer>
