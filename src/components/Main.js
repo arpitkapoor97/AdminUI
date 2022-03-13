@@ -1,46 +1,63 @@
 import React from "react";
 
-import axios from "axios";
-
-import savedData from "../data.json";
+import fetchApiData from "../actions/fetchEmpList";
 
 import MainTable from "./MainTable";
+import SearchBar from "./SearchBar";
+
+// import savedData from "../data.json";
+
+import { useState, useEffect } from "react";
 
 function Main() {
-  // const [apiData, setApiData] = React.useState([]);
-  const [apiData, setApiData] = React.useState(savedData.data);
-  const [loading, setLoading] = React.useState(false);
+  const [apiData, setApiData] = useState([]);
+  const [displayData, setDisplayData] = useState([]);
 
-  const fetchApiData = async () => {
-    // setLoading(true);
-    const url =
-      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
+  const [loading, setLoading] = useState(true);
 
-    try {
-      const apiData = await axios.get(url);
-      const data = apiData.data;
-      // console.log(data);
-      // setLoading(false);
-      return data;
-    } catch (e) {
-      // console.error(e);
-      throw e;
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchText = (newText) => {
+    if (newText) {
+      setSearchText(newText);
+      const searchResult = performSearch();
+      setDisplayData(searchResult);
+    } else {
+      setDisplayData(apiData);
     }
   };
 
-  React.useEffect(() => {
-    // console.log(apiData);
-    //   (async function () {
-    //     console.log("Main re-rendered");
-    //     const data = await fetchApiData();
-    //     setApiData(data);
-    //   })();
-  }, [apiData]);
+  const performSearch = () => {
+    console.log("performSearch");
+    return apiData.filter((o) =>
+      Object.keys(o).some((k) =>
+        o[k].toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  };
+
+  const fetchEmployees = async () => {
+    setLoading(true);
+    const response = await fetchApiData();
+    setLoading(false);
+    if (response.success) {
+      setApiData(response.data);
+      setDisplayData(response.data);
+    } else {
+      console.error(response.message);
+      alert(response.message || "Something went wrong while fetching data.");
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
-    <>
-      <MainTable apiData={apiData} loading={loading} />
-    </>
+    <div style={{ margin: "1rem 4rem" }}>
+      <SearchBar handleSearchText={handleSearchText} />
+      <MainTable apiData={displayData} loading={loading} />
+    </div>
   );
 }
 

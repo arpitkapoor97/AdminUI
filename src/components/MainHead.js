@@ -42,7 +42,16 @@ function MainHead({ allSelected, handleSelectAllClick }) {
             />
           </TableCell>
           {headCells.map((headCell) => {
-            return <TableCell key={headCell.id}>{headCell.label}</TableCell>;
+            return (
+              <TableCell
+                style={{
+                  fontWeight: 700,
+                }}
+                key={headCell.id}
+              >
+                {headCell.label}
+              </TableCell>
+            );
           })}
         </TableRow>
       </TableHead>

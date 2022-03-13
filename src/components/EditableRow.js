@@ -11,7 +11,6 @@ function EditableRow({ tableRow, handleRowSave, handleRowCancel }) {
   const [tableRowData, setTableRowData] = React.useState(tableRow);
 
   const handleSave = (e) => {
-    // console.log("saving updates ", tableRowData);
     handleRowSave(e, tableRowData);
   };
 
@@ -19,15 +18,7 @@ function EditableRow({ tableRow, handleRowSave, handleRowCancel }) {
     <>
       <TableRow key={tableRow.id}>
         <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            //   checked={isItemSelected}
-            inputProps={
-              {
-                // "aria-labelledby": labelId,
-              }
-            }
-          />
+          <Checkbox color="primary" />
         </TableCell>
         <TableCell>
           <Input

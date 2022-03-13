@@ -13,10 +13,6 @@ function ReadOnlyRow({
 }) {
   const [isSeletedChanged, setIsSelectedChanged] = React.useState(false);
 
-  // React.useState(() => {
-  //   // console.log("Re- rendered");
-  // }, [isSeletedChanged]);
-
   return (
     <>
       <TableRow selected={selectedRowIds.includes(tableRow.id)}>
@@ -42,8 +38,6 @@ function ReadOnlyRow({
         <TableCell>
           <IconButton
             onClick={(e) => {
-              // console.log(tableRow.id);
-              handleRowChecked(e, tableRow.id);
               handleRowEdit(e, tableRow.id);
             }}
           >
@@ -53,6 +47,7 @@ function ReadOnlyRow({
             onClick={(e) => {
               handleRowDelete(e, tableRow.id);
             }}
+            color="error"
           >
             <DeleteOutlineIcon />
           </IconButton>

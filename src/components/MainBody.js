@@ -36,10 +36,9 @@ function MainBody({
   };
 
   const handleRowChecked = (e, rowId) => {
-    // console.log("handleRowChecked");
     if (selectedRowIds.includes(rowId)) {
       // console.log("Remove from Selected");
-      const index = selectedRowIds.findIndex((id) => id == rowId);
+      const index = selectedRowIds.findIndex((id) => id === rowId);
       selectedRowIds.splice(index, 1);
       setSelectedRowIds(selectedRowIds);
     } else {
@@ -55,7 +54,7 @@ function MainBody({
         {currentRows.map((tableRow) => {
           return (
             <React.Fragment key={tableRow.id}>
-              {editRowId == tableRow.id ? (
+              {editRowId === tableRow.id ? (
                 <EditableRow
                   tableRow={tableRow}
                   handleRowSave={handleRowSave}

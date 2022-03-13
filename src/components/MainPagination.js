@@ -8,8 +8,6 @@ function MainPagination({ rowsPerPage, totalRows, handlePageChange }) {
   }
 
   const handleChange = (e, newPage) => {
-    // console.log("Change Page");
-    // console.log(e, newPage);
     handlePageChange(newPage);
   };
 
