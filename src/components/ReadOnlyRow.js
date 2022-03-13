@@ -23,7 +23,7 @@ function ReadOnlyRow({
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
-            //   checked={isItemSelected}
+            checked={selectedRowIds.includes(tableRow.id)}
             onClick={(e) => {
               handleRowChecked(e, tableRow.id);
               setIsSelectedChanged(!isSeletedChanged);
@@ -43,6 +43,7 @@ function ReadOnlyRow({
           <IconButton
             onClick={(e) => {
               // console.log(tableRow.id);
+              handleRowChecked(e, tableRow.id);
               handleRowEdit(e, tableRow.id);
             }}
           >

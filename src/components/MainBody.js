@@ -60,7 +60,6 @@ function MainBody({
                   tableRow={tableRow}
                   handleRowSave={handleRowSave}
                   handleRowCancel={handleRowCancel}
-                  // handleRowChecked={handleRowChecked}
                 />
               ) : (
                 <ReadOnlyRow

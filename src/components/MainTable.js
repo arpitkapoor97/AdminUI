@@ -7,17 +7,20 @@ import MainPagination from "./MainPagination";
 
 import Chip from "@mui/material/Chip";
 
+// function handleClick() {
+//   forceUpdate();
+// }
+
 function MainTable({ apiData, loading }) {
   const [tableData, setTableData] = React.useState(apiData);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [selectedRowIds, setSelectedRowIds] = React.useState([]);
-  // const [selectedRowIds, setSelectedRowIds] = React.useState(
-  //   apiData.map((ele) => ele.id)
-  // );
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+
+  const [allSelected, setAllSelected] = React.useState(false);
 
   const [currentRows, setCurrentRows] = React.useState(
     tableData.slice(indexOfFirstRow, indexOfLastRow)
@@ -42,10 +45,11 @@ function MainTable({ apiData, loading }) {
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     setCurrentRows(tableData.slice(indexOfFirstRow, indexOfLastRow));
+    // console.log("Updated Table Data", tableData);
   }, [tableData, currentPage]);
 
   React.useEffect(() => {
-    // console.log(currentRows);
+    // console.log("currentRows updated", currentRows);
   }, [currentRows]);
 
   if (loading) {
@@ -56,25 +60,37 @@ function MainTable({ apiData, loading }) {
     setCurrentPage(newPage);
   };
 
-  const handleSelectedDelete = (selectedRows) => {
-    // setDeleteSelected(true);
-    // handleRowData(null, id)
+  const handleSelectedDelete = () => {
+    console.log(selectedRowIds);
+    let updatedTableData = [...tableData];
+    selectedRowIds.forEach((rowId) => {
+      var removeIndex = updatedTableData.map((row) => row.id).indexOf(rowId);
+      if (removeIndex >= 0) {
+        updatedTableData.splice(removeIndex, 1);
+      }
+    });
+    setTableData(updatedTableData);
   };
 
-  const handleSelectAllClick = (event) => {
-    // if (event.target.checked) {
-    //   const newSelecteds = currentRows;
-    //   setSelectedRows(newSelecteds);
-    //   return;
-    // }
-    // setSelectedRows([]);
+  const handleSelectAllClick = () => {
+    if (allSelected) {
+      setSelectedRowIds([]);
+      setAllSelected(false);
+    } else {
+      const allSelectedRowsIds = currentRows.map((row) => row.id);
+      setSelectedRowIds(allSelectedRowsIds);
+      setAllSelected(true);
+    }
   };
 
   return (
     <>
       <TableContainer>
         <Table>
-          <MainHead handleSelectAllClick={handleSelectAllClick} />
+          <MainHead
+            allSelected={selectedRowIds.length == 10}
+            handleSelectAllClick={handleSelectAllClick}
+          />
           <MainBody
             currentRows={currentRows}
             handleRowData={handleRowData}

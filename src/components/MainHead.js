@@ -3,7 +3,7 @@ import { TableHead, TableCell, TableRow } from "@mui/material";
 
 import { Checkbox } from "@mui/material";
 
-function MainHead({ handleSelectAllClick }) {
+function MainHead({ allSelected, handleSelectAllClick }) {
   const headCells = [
     {
       id: "name",
@@ -35,7 +35,11 @@ function MainHead({ handleSelectAllClick }) {
       <TableHead>
         <TableRow>
           <TableCell padding="checkbox">
-            <Checkbox color="primary" onChange={handleSelectAllClick} />
+            <Checkbox
+              checked={allSelected}
+              color="primary"
+              onChange={handleSelectAllClick}
+            />
           </TableCell>
           {headCells.map((headCell) => {
             return <TableCell key={headCell.id}>{headCell.label}</TableCell>;
