@@ -1,5 +1,5 @@
 import React from "react";
-import { TableContainer, Table, Paper } from "@mui/material";
+import { TableContainer, Table, Paper, makeStyles } from "@mui/material";
 
 import MainHead from "./MainHead";
 import MainBody from "./MainBody";
@@ -81,14 +81,26 @@ function MainTable({ apiData, loading }) {
     }
   };
 
-  const containerStyles = {};
+  const divContainerStyles = {
+    height: "85vh",
+    display: "flex",
+    flexDirection: "column",
+    // background: "red",
+  };
 
   return (
-    <>
+    <div style={divContainerStyles}>
       {loading ? (
         <CircularProgress />
       ) : (
-        <TableContainer styles={{ containerStyles }} component={Paper}>
+        <TableContainer
+          style={{
+            flexGrow: 1,
+            maxHeight: "100%",
+            // overflow: "hidden",
+          }}
+          component={Paper}
+        >
           <Table stickyHeader>
             <MainHead
               allSelected={selectedRowIds.length === currentRows.length}
@@ -124,7 +136,7 @@ function MainTable({ apiData, loading }) {
           handlePageChange={handlePageChange}
         />
       </div>
-    </>
+    </div>
   );
 }
 

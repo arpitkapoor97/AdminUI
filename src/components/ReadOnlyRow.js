@@ -4,6 +4,8 @@ import { Checkbox, IconButton } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 
+// import { styled } from "@mui/system";
+
 function ReadOnlyRow({
   tableRow,
   selectedRowIds,
@@ -26,8 +28,8 @@ function ReadOnlyRow({
             }}
           />
         </TableCell>
-        <TableCell>{tableRow.name}</TableCell>
-        <TableCell>{tableRow.email}</TableCell>
+        <TableCell padding="none">{tableRow.name}</TableCell>
+        <TableCell padding="none">{tableRow.email}</TableCell>
         <TableCell
           style={{
             textTransform: "capitalize",
@@ -35,7 +37,7 @@ function ReadOnlyRow({
         >
           {tableRow.role}
         </TableCell>
-        <TableCell>
+        <TableCell padding="none">
           <IconButton
             onClick={(e) => {
               handleRowEdit(e, tableRow.id);

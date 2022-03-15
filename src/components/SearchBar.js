@@ -7,7 +7,7 @@ function SearchBar({ handleSearchText }) {
       <TextField
         style={{
           width: "100%",
-          marginBottom: "1rem",
+          marginBottom: "0.5rem",
         }}
         placeholder="Search by name, email, or role"
         onChange={(e) => {
